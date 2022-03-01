@@ -146,7 +146,7 @@
         "shade2_class": "darken-2"
     },
     "total_title_to_display": 7,
-    "geo_location_city": "",
+    "geo_location_city": "LEEDS",
     "weather_data": "{\"coord\": {\"lon\": -1.5373, \"lat\": 53.9908}, \"weather\": [{\"id\": 803, \"main\": \"Clouds\", \"description\": \"broken clouds\", \"icon\": \"04n\"}], \"base\": \"stations\", \"main\": {\"temp\": 276.68, \"feels_like\": 274.56, \"temp_min\": 274.42, \"temp_max\": 277.56, \"pressure\": 1031, \"humidity\": 89}, \"visibility\": 9000, \"wind\": {\"speed\": 2.24, \"deg\": 262, \"gust\": 4.92}, \"clouds\": {\"all\": 75}, \"dt\": 1643141364, \"sys\": {\"type\": 2, \"id\": 2020357, \"country\": \"GB\", \"sunrise\": 1643097869, \"sunset\": 1643128326}, \"timezone\": 0, \"id\": 2647428, \"name\": \"Harrogate\", \"cod\": 200}",
     "weather_widget_display_status": "True",
     "tiles": [
