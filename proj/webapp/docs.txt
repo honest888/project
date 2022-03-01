@@ -1,0 +1,7 @@
+// No path should start/end with slashes /\ 
+Make sure the wifi config file is reableable and writable on your machine by some other program. iIt should not decline read/write requests
+
+Only base_folder_path is static/absolute path
+All other paths are given with reference/relative to base_folder_path and they must be inside base_folder_path
+
+Make sure you configure all the paths before running the flask server
