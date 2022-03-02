@@ -53,8 +53,10 @@ class ConfigFileReader():
             # os.path.join(os.getcwd(), 'config.json') ,
             os.path.join('home/pi/savvyvan', 'proj','webapp', 'config.json') ,
             os.path.join('/home/pi/savvyvan', 'proj','webapp', 'config.json') , 
+            os.path.join(os.getcwd(), 'webapp','config.json') ,
             os.path.join(os.getcwd(), 'config.json') ,
         ]
+        #print(path_options)
         for path in path_options:
             if os.path.exists(path):
                 self.file_path = path
@@ -346,29 +348,43 @@ class ConfigFileReader():
             
             
     def generateBatteryLevel(self, battery_level): 
-        # print("battery_level = ",battery_level)
+        
         min_max = [x['measure'] for x in BATTERY_THRESHOLDS]
         min_max = [
             min(min_max),
             max(min_max),
         ]
-        start_range = [x['percent'] for x in BATTERY_THRESHOLDS[::-1] if x['measure']>=battery_level] 
-        end_range = [x['percent'] for x in BATTERY_THRESHOLDS   if x['measure']<=battery_level] 
-        if start_range : start_range=start_range[0] 
-        if end_range : end_range=end_range[0] 
-        # print(start_range)
-        # print(end_range)
+
+        # find position of voltage range in thresholds
+        for pos in range(len(BATTERY_THRESHOLDS)-1):
+            if battery_level < BATTERY_THRESHOLDS[pos]['measure'] and battery_level >= BATTERY_THRESHOLDS[pos+1]['measure']:
+                break
+        
         if battery_level<min_max[0]:
             percentage = 0
-        elif battery_level>min_max[1]:
+        elif battery_level>=min_max[1]:
             percentage = 100
         else:
-            percentage = (start_range+end_range)/2 
+            percentage = int(round(self.translate(battery_level,BATTERY_THRESHOLDS[pos+1]['measure'],BATTERY_THRESHOLDS[pos]['measure'],BATTERY_THRESHOLDS[pos+1]['percent'],BATTERY_THRESHOLDS[pos]['percent']),0))
+
+        #print('battery_level:',battery_level,'vlow:',BATTERY_THRESHOLDS[pos+1]['measure'],'vhigh:',BATTERY_THRESHOLDS[pos]['measure'],'plow:',BATTERY_THRESHOLDS[pos+1]['percent'],'phigh:',BATTERY_THRESHOLDS[pos]['percent'],'percentage:',percentage)
+    
         return {
             "battery_level":battery_level,
             "percentage":percentage
         } 
-  
+
+    # translate value in one range to another
+    def translate(self, value, leftMin, leftMax, rightMin, rightMax):
+        # figure out how 'wide' each range is
+        leftSpan = leftMax - leftMin
+        rightSpan = rightMax - rightMin
+
+        # convert the left range into a 0-1 range (float)
+        valueScaled = float(value - leftMin) / float(leftSpan)
+
+        # convert the 0-1 range into a value in the right range.
+        return rightMin + (valueScaled * rightSpan)
   
             
 class WPA_Supplicant_Reader():
