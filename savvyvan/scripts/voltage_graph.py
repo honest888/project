@@ -4,10 +4,10 @@ from datetime import datetime
 
 # change these as desired - they're the pins connected from the
 # SPI port on the ADC to the Cobbler
-SPICLK = 26
-SPIMISO = 19
-SPIMOSI = 13
-SPICS = 6
+SPICLK = 6
+SPIMISO = 13
+SPIMOSI = 19
+SPICS = 26
 mq7_apin = 0
 
 
