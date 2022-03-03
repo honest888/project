@@ -10,8 +10,6 @@ SPIMOSI = 19
 SPICS = 26
 mq7_apin = 0
 
-
-
 #port init
 def init():
          GPIO.setwarnings(False)
@@ -62,11 +60,17 @@ def main():
          init()
 
          while True:
-                Voltage=readadc(mq7_apin, SPICLK, SPIMOSI, SPIMISO, SPICS)
-                now = datetime.now()
-                dt_string = now.strftime("%d/%m/%Y %H:%M")
-                print(str(dt_string) + str(' -> ')+ str("%.2f"%((Voltage*(3.3/1024)*5.05))),file=open("../readings/voltage.txt", "w"))
-                time.sleep(5)
+                 Voltage=readadc(mq7_apin, SPICLK, SPIMOSI, SPIMISO, SPICS)
+                 #print(Voltage)
+                 VoltageOutput=(Voltage*(3.3/1024)*5.05)
+                 #print(VoltageOutput)
+                 Voltage=(round(VoltageOutput, 1))
+                 #print(Voltage)
+                 now = datetime.now()
+                 dt_string = now.strftime("%d/%m/%Y %H:%M")
+                 print(str(dt_string) + str(' -> ')+ str(Voltage),file=open("../readings/voltage.txt", "w"))
+                 #print(str(dt_string) + str(' -> ')+ str(Voltage))#,file=open("../readings/voltage.txt", "w"))
+                 time.sleep(5)
 
 #file=open("readings/battery.txt", "w")
 
