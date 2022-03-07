@@ -18,7 +18,7 @@
 <span id="current_battery_level" style="display: none;">{{data.battery_level.battery_level}}</span>
 <!-- <input type="text" class="browser-default"> -->
 
-<div class="row" style="padding: 20px  ">
+<div class="row" style="padding: 10px; margin-bottom:0px">
     {% for tile in data.tilesList %}
         
         {% if loop.index0 < data.total_title_to_display %} 
@@ -104,33 +104,17 @@
 
 
 </div> 
-<div></div>
-<div>
-    
-
-</div>
 
 
 {% if data.weather_widget_display_status %}
     
 {% include "weather-widget.html" %}
 {% endif %}
-    
-
-
-<script>
-
-    </script>
-
 
 <script>
 
 var data = {{ data | tojson }};   
  
-
- 
-
-
 
 function updateBatteryStatus(percent,color){
     if(percent>100){
