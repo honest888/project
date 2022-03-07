@@ -112,9 +112,12 @@
 
 
 <script> 
+console.log('begin 3');
 
 $('#save_geo_location_city').click(function(){
     var city = $('#new_geo_location_city').val()
+    console.log('city')
+    console.log(city)
     $.ajax({
         url: '/save_geo_location_city',
         data:{'city':city},
@@ -127,9 +130,11 @@ $('#save_geo_location_city').click(function(){
 })
 
 var data = {{ data | tojson }};   
-
+console.log('b');
+console.log(data);
 
 function updateWeatherWidget(res){ 
+    console.log('updateWeatherWidget')
     $('#weather_icon').attr("src",`https://openweathermap.org/img/wn/${res.weather[0].icon}@2x.png`);
     $('#weather_location').html(`${res.name}, ${res.sys.country}`);
     $('#weather_temperataure').html(`${res.main.temp} C`);
@@ -140,6 +145,9 @@ function updateWeatherWidget(res){
 }
 
 function getWeatherData(lat,long){
+    console.log('getWeatherData');
+    console.log(lat);
+    console.log(long);
     $.ajax({
         url:'/get_weather_data',
         success: function(weather_data){
@@ -156,25 +164,39 @@ function getWeatherData(lat,long){
 
 
 var is_allowed = localStorage.getItem("is_allowed");
-console.log(is_allowed==null)
+
+var is_allowed = true
+
+console.log('is_allowed: '+String(is_allowed))
+/*getWeatherData(54.2591721, -3.1451057)*/
+
 if(is_allowed!=null ){
+    console.log('is_allowed not null')
     var latitude = localStorage.getItem('latitude')
     var longitude = localStorage.getItem('longitude') 
+    console.log('latitude: '+String(latitude)+' longitude: '+String(longitude))
     getWeatherData(latitude,longitude)
 }else{
-    console.log("here")
+    console.log("here");
+    console.log(navigator.geolocation);
     if (navigator.geolocation) {
+        console.log('c');
         navigator.geolocation.getCurrentPosition(function(position){
+            
             localStorage.setItem('is_allowed',true)
             localStorage.setItem('latitude',position.coords.latitude)
             localStorage.setItem('longitude',position.coords.longitude)
             var latitude = localStorage.getItem('latitude')
             var longitude = localStorage.getItem('longitude')
+            console.log(latitude)
+            console.log(longitude)
             getWeatherData(latitude,longitude)
         });
+        console.log('d');
     } else { 
         alert("Geolocation is not supported by this browser.");
     }
 
-}  
+}
+  
 </script>
