@@ -157,6 +157,7 @@ function updateBatteryStatus(percent,color){
 
 
 $(document).ready(function(){ 
+    console.log('doc ready a')
     setTimeout(function(){
 
         updateBatteryStatus(data.battery_level.percentage,data.battery_color) 
@@ -286,7 +287,7 @@ $('.tile').click(function(){
 function realTimeTileStatusUpdate(){
     var required_tiles = $('div.tile_file_mapper_div');
     var dict = {}
-    console.log("required_tiles")
+    /* console.log("required_tiles") */
     for(var x=0;x<required_tiles.length;x++){
         var tile_file_mapping = $(required_tiles[x]).data('tile_file_mapping')
         var index = $(required_tiles[x]).data('index')
@@ -299,7 +300,7 @@ function realTimeTileStatusUpdate(){
             var states = res.states 
             for (var key in states) { 
                 if (states.hasOwnProperty(key)) {           
-                    console.log(key, states[key]);
+                    /* console.log(key, states[key]); */
                     updateTile(key, states[key]) 
                 }
             }
@@ -307,12 +308,16 @@ function realTimeTileStatusUpdate(){
     })
 }
 
+function reloadPage() {
+    console.log('reloadPage');
+    location = '';
+}
 
 $(document).ready(function(){
-
+    console.log('doc ready b')
     realTimeTileStatusUpdate();
-    setInterval(realTimeTileStatusUpdate,1000)
-
+    setInterval(realTimeTileStatusUpdate,1000);
+    setInterval(reloadPage,60*60*1000);
 })
 
 
