@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 from datetime import datetime
+import statistics
 
 # change these as desired - they're the pins connected from the
 # SPI port on the ADC to the Cobbler
@@ -9,6 +10,9 @@ SPIMISO = 13
 SPIMOSI = 19
 SPICS = 26
 mq7_apin = 0
+
+Volt_list = []
+Volt_read = []
 
 #port init
 def init():
@@ -56,30 +60,45 @@ def readadc(adcnum, clockpin, mosipin, misopin, cspin):
         adcout >>= 1       # first bit is 'null' so drop it
         return adcout
 #main ioop
+Graph_repeat=120
+Read_repeat=5
+
 def main():
          init()
 
          while True:
-                 Voltage=readadc(mq7_apin, SPICLK, SPIMOSI, SPIMISO, SPICS)
-                 #print(Voltage)
-                 VoltageOutput=(Voltage*(3.3/1024)*5.05)
-                 #print(VoltageOutput)
-                 Voltage=(round(VoltageOutput, 1))
-                 #print(Voltage)
-                 now = datetime.now()
-                 dt_string = now.strftime("%d/%m/%Y %H:%M")
-                 print(str(dt_string) + str(' -> ')+ str(Voltage),file=open("../readings/voltage.txt", "w"))
-                 #print(str(dt_string) + str(' -> ')+ str(Voltage))#,file=open("../readings/voltage.txt", "w"))
-                 time.sleep(5)
+                 for x in range(Graph_repeat):
+                         for x in range(Read_repeat):
+                                Voltage=readadc(mq7_apin, SPICLK, SPIMOSI, SPIMISO, SPICS)
+                                #print(Voltage)
+                                VoltageOutput=(Voltage*(3.3/1024)*5.05)
+                                #print(VoltageOutput)
+                                Volt_read.append(VoltageOutput) #append volt_read list
+                                time.sleep(1)
+                         Voltage = statistics.mean(Volt_read) #store average of list
+                         Voltage = (round(Voltage, 1)) #rount to 2 decimal places
+                         #print(Voltage)
+                         Volt_read.clear() # clear list
+                        
+                         Volt_list.append(Voltage) 
+                         now = datetime.now()
+                         dt_string = now.strftime("%d/%m/%Y %H:%M")
+                         print(str(dt_string) + str(' -> ')+ str(Voltage),file=open("../readings/voltage.txt", "w"))
+                        #print(str(dt_string) + str(' -> ')+ str(Voltage))#,file=open("../readings/voltage.txt", "w"))
+                        
+                 Voltage_graph = statistics.mean(Volt_list)
+                 Voltage_graph_round=(round(Voltage_graph, 2)) 
+                 print(str(dt_string) + str(' -> ')+ str(Voltage_graph_round),file=open("../readings/voltage_graph.txt", "a"))
+                 Volt_list.clear()
 
 #file=open("readings/battery.txt", "w")
 
 if __name__ =='__main__':
          try:
-                  main()
-                  pass
+                 main()
+                 pass
          except KeyboardInterrupt:
-                  pass
+                 pass
 
 GPIO.cleanup()
          
