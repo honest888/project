@@ -211,11 +211,21 @@ $('#battery_tile_modal_trigger').click(function(){
         url: "/get_battery_tile_chart_data",
         success: function(res){
             //var data = res.data
+            console.log('battery_tile_modal_trigger')
             var data = battery_chart.config.data;
-            data.datasets[0].data = res.data.dataset;
-            data.labels =res.data.labels;
-            battery_chart.update();
             
+            var min = Math.min.apply(Math,res.data.dataset.filter(Number))
+            var max = Math.max.apply(Math,res.data.dataset)
+            console.log(min)
+            console.log(max)
+            
+            data.datasets[0].data = res.data.dataset;
+            data.labels = res.data.labels;
+            
+            battery_chart.options.scales.yAxes[0].ticks.min = min
+            battery_chart.options.scales.yAxes[0].ticks.max = max
+            
+            battery_chart.update();
             
         }
     })
