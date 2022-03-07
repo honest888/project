@@ -29,7 +29,7 @@ def weatherFunction():
     city = reader.get_geo_location_city()
     print("-> Current city = ",city)
     api_key = reader.get_weather_data_api_key()
-    url  = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}'
+    url  = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
     print("Weather API Response ")
     weather_data = requests.get( url).json()
     print(weather_data) 
