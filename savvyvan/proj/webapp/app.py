@@ -4,7 +4,7 @@ import datetime
 import subprocess
 from time import sleep
 from traceback import print_exc
-from flask import Flask, request
+from flask import Flask, request, flash
 from flask import jsonify, render_template
 
 import os.path
@@ -13,9 +13,11 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ''))
 try:
     from . import config
     from .jsonFileReader import ConfigFileReader,WPA_Supplicant_Reader
+    from . import weather
 except:
     import config
     from jsonFileReader import ConfigFileReader,WPA_Supplicant_Reader
+    import weather
     pass
      
 import json,requests
@@ -27,8 +29,7 @@ import json,requests
 app = Flask(__name__)
 #app.config["DEBUG"] = True
 app.config["internal_config"] = config
-
-
+app.secret_key = 'flasksecretkey'
 
 ORIGINAL_DIR = os.getcwd()
 SCRIPT_DIR = os.path.join(ORIGINAL_DIR, config.INPUT_BASE)
@@ -41,6 +42,7 @@ def sidebar_run_python_file(file_name):
             subprocess.Popen(["python", file_path])
         except:
             subprocess.Popen(["python3", file_path])
+        #flash('File '+file_name+' run') message won't appear immediately as no page refresh
     return jsonify({})
 
 @app.route("/")
@@ -108,8 +110,13 @@ def save_total_title_to_display():
 @app.route("/save_geo_location_city")
 def save_geo_location_city(): 
     city = request.args.get('city') 
+    print('city:',city)
     reader = ConfigFileReader()
     reader.set_geo_location_city(city=city) 
+
+    # call weather function to get lat lon and weather info
+    weather.weatherFunction()
+
     return jsonify({})
 
 
@@ -170,19 +177,19 @@ def set_weather_widget_display_status():
     # print(status)
     return jsonify({})
 
-
-
-
-
 @app.route("/delete_ssid")
 def delete_ssid():  
+    print('Deleting SSID')  
+    flash('Deleting SSID')
     ssid = request.args.get('ssid') 
-    # print(ssid)
+    print('ssid:',ssid)
     WPA_Supplicant_Reader().deleteGivenSSID(ssid=ssid)
     return jsonify({})
 
 @app.route("/save_netwrok")
-def save_netwrok():  
+def save_netwrok():
+    print('Saving wifi settings')  
+    flash('Saving wifi settings')
     ssid = request.args.get('ssid') 
     password = request.args.get('password')  
     WPA_Supplicant_Reader().addNewNetwrok(ssid=ssid,password=password)
@@ -208,6 +215,7 @@ def get_weather_data():
 
 @app.route("/get-data") 
 def get_data():
+    print('get_data')
     data = dict()  
     reader = ConfigFileReader() 
     data['weather_widget_display_status'] = reader.get_weather_widget_display_status()
@@ -244,8 +252,9 @@ def get_data():
             #data["battery"].update(parse_kvs(f.read().split())) # Converts Temp=X Humidity=Y -> {"Temp": "X", "Humidity": "Y"}
             try:
                 data["battery"]["volts"] = float(f.read())
+                #print('Volts:',data["battery"]["volts"])
             except ValueError:
-                pass
+                print('Error getting volts')
 
     # Gas
     data["gas"] = dict()
@@ -339,7 +348,9 @@ def get_battery_level():
     battery_color = None
     battery_level_file_path = reader.getBatteryDataFilePath()
     battery_level = open(battery_level_file_path,'r').readlines()[-1].split('->')[-1]
+    #print('battery_level a',battery_level)
     battery_level = reader.generateBatteryLevel(float(battery_level))
+    #print('battery_level b',battery_level)
     battery_color = str(reader.getBatteryColor(level=float(battery_level['percentage'])))
     
     # print("---")
@@ -357,7 +368,8 @@ def get_battery_tile_chart_data():
 
 
 @app.route("/wifi_settings_page_run_py_file")
-def wifi_settings_page_run_py_file(): 
+def wifi_settings_page_run_py_file():
+    flash('Reconfiguring wifi') 
     reader = ConfigFileReader()
     path = reader.get_wifi_settings_page_run_py_file()
     print("-> Running python file = ",path)
