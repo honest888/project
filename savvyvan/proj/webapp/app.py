@@ -52,7 +52,10 @@ def index():
     for var in dir(config):
         if not var.startswith("__"):
             config_vars[var] = getattr(config, var)
- 
+
+    # call weather function to get lat lon and weather info
+    weather.weatherFunction()
+
     return render_template("main.html", data=get_data().json, config=config_vars)
 
 
@@ -189,7 +192,7 @@ def delete_ssid():
 @app.route("/save_netwrok")
 def save_netwrok():
     print('Saving wifi settings')  
-    flash('Saving wifi settings')
+    #flash('Saving wifi settings')
     ssid = request.args.get('ssid') 
     password = request.args.get('password')  
     WPA_Supplicant_Reader().addNewNetwrok(ssid=ssid,password=password)
@@ -350,7 +353,7 @@ def get_battery_level():
     battery_level = open(battery_level_file_path,'r').readlines()[-1].split('->')[-1]
     #print('battery_level a',battery_level)
     battery_level = reader.generateBatteryLevel(float(battery_level))
-    #print('battery_level b',battery_level)
+    print('battery_level b',battery_level)
     battery_color = str(reader.getBatteryColor(level=float(battery_level['percentage'])))
     
     # print("---")
