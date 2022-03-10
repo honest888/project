@@ -10,7 +10,7 @@
     "menu_folder_path": "menu",
     "battery_flash": 11.66,
     "battery_status_refresh_interval": 2,
-    "max_total_title_to_display": 8,
+    "max_total_title_to_display": 7,
     "weather_data_api_key": "ae6d37b4d05cadedfacb68d810b2cfc2",
     "battery_min": 10.5,
     "battery_max": 15,
@@ -122,9 +122,14 @@
             "tile_icon": "water-drop.png"
         },
         {
+            "tile_name": "Aux Volt Meter",
+            "tile_icon": "Volt_meter"
+        },
+        {
             "tile_name": "WiFi",
             "tile_icon": "wifi.png"
         }
+
     ],
     "mapped_python_files": [
         "RelayGPIO25.py",
