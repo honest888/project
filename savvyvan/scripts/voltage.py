@@ -10,6 +10,7 @@ SPIMISO = 13
 SPIMOSI = 19
 SPICS = 26
 mq7_apin = 0
+Buzzer = 17
 
 Volt_list = []
 Volt_read = []
@@ -24,6 +25,7 @@ def init():
          GPIO.setup(SPIMISO, GPIO.IN)
          GPIO.setup(SPICLK, GPIO.OUT)
          GPIO.setup(SPICS, GPIO.OUT)
+         GPIO.setup(Buzzer, GPIO.OUT)
 
 #read SPI data from MCP3008(or MCP3204) chip,8 possible adc's (0 thru 7)
 def readadc(adcnum, clockpin, mosipin, misopin, cspin):
@@ -90,6 +92,25 @@ def main():
                  Voltage_graph_round=(round(Voltage_graph, 2)) 
                  print(str(dt_string) + str(' -> ')+ str(Voltage_graph_round),file=open("../readings/voltage_graph.txt", "a"))
                  Volt_list.clear()
+                 
+                 #Alert if voltage is between 1 and 11.5
+                 is_between = 1 <= Voltage_graph_round <= 11.5
+                 Shall_Alert = is_between
+                 if Shall_Alert==True:
+                         GPIO.output(Buzzer,GPIO.HIGH)
+                         time.sleep(0.3)
+                         GPIO.output(Buzzer,GPIO.LOW)
+                         time.sleep(0.5)
+                         GPIO.output(Buzzer,GPIO.HIGH)
+                         time.sleep(0.3)
+                         GPIO.output(Buzzer,GPIO.LOW)
+                         time.sleep(0.5)
+                         GPIO.output(Buzzer,GPIO.HIGH)
+                         time.sleep(0.3)
+                         GPIO.output(Buzzer,GPIO.LOW)
+
+
+
 
 #file=open("readings/battery.txt", "w")
 
