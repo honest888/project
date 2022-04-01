@@ -31,9 +31,12 @@ def weatherFunction():
     api_key = reader.get_weather_data_api_key()
     url  = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
     print("Weather API Response ")
-    weather_data = requests.get( url).json()
-    print(weather_data) 
-    reader.set_weather_data(weather_data) 
+    try:
+        weather_data = requests.get( url).json()
+        print(weather_data) 
+        reader.set_weather_data(weather_data) 
+    except Exception as e:
+        print('Error getting weather data',str(e))
     
     
 if __name__=="__main__"    :
