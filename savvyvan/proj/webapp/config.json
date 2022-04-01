@@ -189,28 +189,28 @@
         {
             "tile_id": "tile_5",
             "tile_name": "",
-            "tile_icon": "contact.png",
+            "tile_icon": "",
             "tile_file_mapping": "RelayGPIO12.py",
             "is_active_tile": 1
         },
         {
             "tile_id": "tile_6",
-            "tile_name": "Heater",
-            "tile_icon": "heater.svg",
+            "tile_name": "",
+            "tile_icon": "",
             "tile_file_mapping": "RelayGPIO16.py",
             "is_active_tile": 0
         },
         {
             "tile_id": "tile_7",
             "tile_name": "",
-            "tile_icon": "email.png",
+            "tile_icon": "",
             "tile_file_mapping": "RelayGPIO20.py",
             "is_active_tile": 1
         },
         {
             "tile_id": "tile_8",
-            "tile_name": "Water",
-            "tile_icon": "water-drop.png",
+            "tile_name": "",
+            "tile_icon": "",
             "tile_file_mapping": "RelayGPIO21.py",
             "is_active_tile": 0
         }

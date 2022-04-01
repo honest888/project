@@ -28,7 +28,7 @@ GPIO.setup(Buzzer, GPIO.OUT)
 #Script
 #Tap Noise
 GPIO.output(Buzzer,GPIO.HIGH)
-time.sleep(0.05)
+time.sleep(0.02)
 GPIO.output(Buzzer,GPIO.LOW)
 
 GPIO_Status = GPIO.input(GPIOPort) #Save current state of port
