@@ -1,6 +1,6 @@
 {
     "base_folder_path": "/home/pi/savvyvan",
-    "settings_page_text_file_path": "remoteaccess/message.txt",
+    "settings_page_text_file_path": "message.txt",
     "battery_file_path": "readings/voltage.txt",
     "battery_graph_file_path": "readings/voltage_graph.txt",
     "images_folder_path": "proj/webapp/static/img",
@@ -62,6 +62,10 @@
             "tile_icon": "alarm.png"
         },
         {
+            "tile_name": "Aux Volt Meter",
+            "tile_icon": "Volt_meter.png"
+        },
+        {
             "tile_name": "Computer",
             "tile_icon": "computer.png"
         },
@@ -102,6 +106,10 @@
             "tile_icon": "radio.png"
         },
         {
+            "tile_name": "Reading Lights",
+            "tile_icon": "reading_light.png"
+        },
+        {
             "tile_name": "Satellite",
             "tile_icon": "satellite-dish.png"
         },
@@ -137,72 +145,72 @@
         "RelayGPIO21.py"
     ],
     "tile_bg_class": "teal",
-    "battery_tile_display_status": "True",
+    "battery_tile_display_status": "False",
     "tile_shade_1": "lighten-1",
-    "tile_shade_2": "darken-2",
+    "tile_shade_2": "darken-3",
     "background_color": {
         "base_class": "teal",
         "shade1_class": "lighten-1",
-        "shade2_class": "darken-2"
+        "shade2_class": "darken-3"
     },
-    "total_title_to_display": 7,
+    "total_title_to_display": 4,
     "geo_location_city": "LEEDS",
-    "weather_data": "{\"coord\": {\"lon\": -1.5373, \"lat\": 53.9908}, \"weather\": [{\"id\": 803, \"main\": \"Clouds\", \"description\": \"broken clouds\", \"icon\": \"04n\"}], \"base\": \"stations\", \"main\": {\"temp\": 276.68, \"feels_like\": 274.56, \"temp_min\": 274.42, \"temp_max\": 277.56, \"pressure\": 1031, \"humidity\": 89}, \"visibility\": 9000, \"wind\": {\"speed\": 2.24, \"deg\": 262, \"gust\": 4.92}, \"clouds\": {\"all\": 75}, \"dt\": 1643141364, \"sys\": {\"type\": 2, \"id\": 2020357, \"country\": \"GB\", \"sunrise\": 1643097869, \"sunset\": 1643128326}, \"timezone\": 0, \"id\": 2647428, \"name\": \"Harrogate\", \"cod\": 200}",
-    "weather_widget_display_status": "True",
+    "weather_data": "{\"coord\": {\"lon\": -1.5477, \"lat\": 53.7964}, \"weather\": [{\"id\": 701, \"main\": \"Mist\", \"description\": \"mist\", \"icon\": \"50d\"}], \"base\": \"stations\", \"main\": {\"temp\": 3.96, \"feels_like\": 3.96, \"temp_min\": 3.25, \"temp_max\": 7.39, \"pressure\": 1023, \"humidity\": 90}, \"visibility\": 2500, \"wind\": {\"speed\": 0.51, \"deg\": 0}, \"clouds\": {\"all\": 40}, \"dt\": 1647852834, \"sys\": {\"type\": 2, \"id\": 2041378, \"country\": \"GB\", \"sunrise\": 1647842795, \"sunset\": 1647886812}, \"timezone\": 0, \"id\": 3333164, \"name\": \"Leeds\", \"cod\": 200}",
+    "weather_widget_display_status": "False",
     "tiles": [
         {
             "tile_id": "tile_1",
-            "tile_name": "USB",
-            "tile_icon": "usb.svg",
+            "tile_name": "",
+            "tile_icon": "Profile_transparent_small.png",
             "tile_file_mapping": "RelayGPIO25.py",
             "is_active_tile": 0
         },
         {
             "tile_id": "tile_2",
-            "tile_name": "Satellite",
-            "tile_icon": "satellite-dish.png",
+            "tile_name": "",
+            "tile_icon": "thankyou.png",
             "tile_file_mapping": "RelayGPIO8.py",
             "is_active_tile": 0
         },
         {
             "tile_id": "tile_3",
-            "tile_name": "Oven",
-            "tile_icon": "cooker.png",
+            "tile_name": "",
+            "tile_icon": "manuals.png",
             "tile_file_mapping": "RelayGPIO7.py",
             "is_active_tile": 0
         },
         {
             "tile_id": "tile_4",
-            "tile_name": "Computer",
-            "tile_icon": "computer.png",
+            "tile_name": "",
+            "tile_icon": "begin_config.png",
             "tile_file_mapping": "RelayGPIO100.py",
-            "is_active_tile": 0
+            "is_active_tile": 1
         },
         {
             "tile_id": "tile_5",
-            "tile_name": "Fan",
-            "tile_icon": "fan.png",
+            "tile_name": "",
+            "tile_icon": "",
             "tile_file_mapping": "RelayGPIO12.py",
-            "is_active_tile": 0
+            "is_active_tile": 1
         },
         {
             "tile_id": "tile_6",
-            "tile_name": "Alarm",
-            "tile_icon": "alarm.png",
+            "tile_name": "",
+            "tile_icon": "",
             "tile_file_mapping": "RelayGPIO16.py",
             "is_active_tile": 0
         },
         {
             "tile_id": "tile_7",
-            "tile_name": "Hob",
-            "tile_icon": "cooking.png",
+            "tile_name": "",
+            "tile_icon": "",
             "tile_file_mapping": "RelayGPIO20.py",
-            "is_active_tile": 0
+            "is_active_tile": 1
         },
         {
             "tile_id": "tile_8",
-            "tile_name": "Water",
-            "tile_icon": "water-drop.png",
+            "tile_name": "",
+            "tile_icon": "",
             "tile_file_mapping": "RelayGPIO21.py",
             "is_active_tile": 0
         }

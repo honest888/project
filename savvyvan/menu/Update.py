@@ -1,2 +1,2 @@
 import os
-os.system("/bin/sh ~/savvyvan/menu/autoupdate.sh")
+os.system("/bin/sh ~/savvyvan/scripts/autoupdate.sh")

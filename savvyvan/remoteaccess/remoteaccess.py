@@ -84,7 +84,7 @@ while repeat==True:
 					remoteaccess = str("Internet Connected, Please Wait for Remote Access to be Established..")
 				else:
 					remoteaccess = str("No Internet Connection")
-			print(remoteaccess,file=open("/home/pi/savvyvan/remoteaccess/message.txt", "w"))
+			print(remoteaccess,file=open("/home/pi/savvyvan/message.txt", "w"))
 			print(remoteaccess)
 			time.sleep(60)
 

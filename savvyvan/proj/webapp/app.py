@@ -182,8 +182,8 @@ def set_weather_widget_display_status():
 
 @app.route("/delete_ssid")
 def delete_ssid():  
-    print('Deleting SSID')  
-    flash('Deleting SSID')
+    print('SSID Deleted, Please Commit Changes')  
+    flash('SSID Deleted, Please Commit Changes')
     ssid = request.args.get('ssid') 
     print('ssid:',ssid)
     WPA_Supplicant_Reader().deleteGivenSSID(ssid=ssid)
@@ -191,8 +191,8 @@ def delete_ssid():
 
 @app.route("/save_netwrok")
 def save_netwrok():
-    print('Saving wifi settings')  
-    #flash('Saving wifi settings')
+    print('SSID Saved, Please Commit Changes')  
+    flash('SSID Saved, Please Commit Changes')
     ssid = request.args.get('ssid') 
     password = request.args.get('password')  
     WPA_Supplicant_Reader().addNewNetwrok(ssid=ssid,password=password)
@@ -372,7 +372,7 @@ def get_battery_tile_chart_data():
 
 @app.route("/wifi_settings_page_run_py_file")
 def wifi_settings_page_run_py_file():
-    flash('Reconfiguring wifi') 
+    flash('Changes Commited') 
     reader = ConfigFileReader()
     path = reader.get_wifi_settings_page_run_py_file()
     print("-> Running python file = ",path)
