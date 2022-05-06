@@ -12,8 +12,11 @@ SPICS = 26
 mq7_apin = 0
 Buzzer = 17
 
+#Set Voltage Lists and Varables
 Volt_list = []
 Volt_read = []
+
+
 
 #port init
 def init():
@@ -70,23 +73,24 @@ def main():
 
          while True:
                  for x in range(Graph_repeat):
+                         #read volt modifier file
+                         with open('volt_modifier.txt') as f:
+                                 volt_modifier = f.read()
+
                          for x in range(Read_repeat):
                                 Voltage=readadc(mq7_apin, SPICLK, SPIMOSI, SPIMISO, SPICS)
-                                #print(Voltage)
                                 VoltageOutput=(Voltage*(3.3/1024)*5.05)
-                                #print(VoltageOutput)
                                 Volt_read.append(VoltageOutput) #append volt_read list
                                 time.sleep(1)
                          Voltage = statistics.mean(Volt_read) #store average of list
+                         Voltage = float(Voltage)+float(volt_modifier)
                          Voltage = (round(Voltage, 1)) #rount to 2 decimal places
-                         #print(Voltage)
                          Volt_read.clear() # clear list
                         
                          Volt_list.append(Voltage) 
                          now = datetime.now()
                          dt_string = now.strftime("%d/%m/%Y %H:%M")
                          print(str(dt_string) + str(' -> ')+ str(Voltage),file=open("../readings/voltage.txt", "w"))
-                        #print(str(dt_string) + str(' -> ')+ str(Voltage))#,file=open("../readings/voltage.txt", "w"))
                         
                  Voltage_graph = statistics.mean(Volt_list)
                  Voltage_graph_round=(round(Voltage_graph, 2)) 
