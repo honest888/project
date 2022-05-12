@@ -19,12 +19,12 @@
 <center>
     <div class="col s12 l6 m6">
         <div>
-            <br>
+            <br><br>
                 <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;">
                     <span style="padding-right: 15px" class="enlarge_text">
-                       No. of Tiles
+                       Number of Tiles
                     </span> 
-                    <select  id="total_title_to_display" class="browser-default" style="width:150px">
+                    <select  id="total_title_to_display" class="browser-default" style="width:65px">
                         {% for x in data.max_total_title_to_display %}
                         {% if data.total_title_to_display == x %}
                             <option value="{{x}}" selected>{{x}}</option>
@@ -89,14 +89,14 @@
             <div style="padding: 0% 15%;margin-top: 30px;">
                 <div>
                     <span  class="enlarge_text">
-                        Choose Background Color
+                        System Colours
                        
                      </span>  
 
                     <div style="margin-top: 10px;display: flex;flex-direction: column;justify-content: center;align-items: center;">
              
                         <!-- Selection Base class -->
-                        Menu color<select name="" id="select_base_class" class="browser-default"> 
+                        Main Colour<select name="" id="select_base_class" class="browser-default"> 
                             {% for color_class in data.all_color_classes.avaliable_base_color_classes %}
                             {% if data.tile_colors.0 == color_class %}
                             <option value="{{color_class}}" selected>{{color_class}}</option>
@@ -109,7 +109,7 @@
 
             
                         <!-- Selection Shade 2 class -->
-                        Menu color shade<select name="" id="select_shade2_class" class="browser-default"> 
+                        Menu Shade<select name="" id="select_shade2_class" class="browser-default"> 
                             {% for color_class in data.all_color_classes.avaliable_shade2_classes %}
                             {% if data.tile_colors.2 == color_class %}
                             <option value="{{color_class}}" selected>{{color_class}}</option>
@@ -120,7 +120,7 @@
                         </select>
 
                         <!-- Selection Shade 1 class -->
-                        Tile shade<select name="" id="select_shade1_class" class="browser-default"> 
+                        Selected Tile Shade<select name="" id="select_shade1_class" class="browser-default"> 
                             {% for color_class in data.all_color_classes.avaliable_shade1_classes %}
                             {% if data.tile_colors.1 == color_class %}
                             <option value="{{color_class}}" selected>{{color_class}}</option>
@@ -141,7 +141,7 @@
                 <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
                     
                                     <div>
-                                        <span style="padding-right: 15px" class="enlarge_text"> Optional Tiles  </span>  
+                                        <!-- <span style="padding-right: 15px" class="enlarge_text"> Optional Tiles  </span>  -->
                                         <p class="">
                                             <label>
                                                 {% if data.battery_tile_display_status %}
@@ -152,13 +152,14 @@
                                                   
                                                 {% endif %}
                                                 
-                                              <span>Battery Power </span>
+                                              <span>Battery Monitor </span> 
+                                              
                                             </label>
                                           </p>  
                                     </div>
                     
                                     <div>
-                                        <span style="padding-right: " class="enlarge_text"> Optional Weather Widget  </span>  
+                                        <!--<span style="padding-right: " class="enlarge_text"> Weather Widget  </span>  -->
                                         <p class="">
                                             <label>
                                                 {% if data.weather_widget_display_status %}
@@ -182,22 +183,15 @@
 </div>
 
 
-<div style="display:flex;flex-direction: row;justify-content:space-between;padding: 5px 30px ;">
+<!--<div style="display:flex;flex-direction: row;justify-content:space-between;padding: 5px 30px ;"> -->
 
 </div>
-
-
-
-
-
 
 <p class="z-depth-1 center" style="padding:5px; margin:5px 30px;">
     {{data.paragraph}}
 </p>
 
 
-
-<br><br>
 
 <script>
 
