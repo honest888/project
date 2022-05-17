@@ -16,7 +16,7 @@ Buzzer = 17
 Volt_list = []
 Volt_read = []
 
-
+email_add = "simon@me.com"
 
 #port init
 def init():
