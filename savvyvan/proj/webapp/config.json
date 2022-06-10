@@ -16,8 +16,8 @@
     "battery_max": 15,
     "display_external_link_icon": "False",
     "current_battery_index": 1,
-    "fine_tune": 0.4,
-    "email": "SIMON@GMAIL.COM",
+    "fine_tune": 0.0,
+    "email": "SIMON@SAVVYVAN.CO.UK",
     "battery_types": [
         {
             "name": "AGM",
@@ -161,26 +161,26 @@
         "RelayGPIO20.py",
         "RelayGPIO21.py"
     ],
-    "tile_bg_class": "blue",
+    "tile_bg_class": "teal",
     "battery_tile_display_status": "True",
     "tile_shade_1": "darken-2",
     "tile_shade_2": "darken-3",
     "background_color": {
-        "base_class": "blue",
+        "base_class": "teal",
         "shade1_class": "darken-2",
         "shade2_class": "darken-3"
     },
     "total_title_to_display": 4,
-    "geo_location_city": "London",
-    "weather_data": "",
-    "weather_widget_display_status": "True",
+    "geo_location_city": "LEEDS",
+    "weather_data": "{\"cod\": 401, \"message\": \"Invalid API key. Please see http://openweathermap.org/faq#error401 for more info.\"}",
+    "weather_widget_display_status": "False",
     "tiles": [
         {
             "tile_id": "tile_1",
             "tile_name": "",
             "tile_icon": "Profile_transparent_small.png",
             "tile_file_mapping": "RelayGPIO25.py",
-            "is_active_tile": 1
+            "is_active_tile": 0
         },
         {
             "tile_id": "tile_2",
@@ -201,7 +201,7 @@
             "tile_name": "",
             "tile_icon": "begin_config.png",
             "tile_file_mapping": "RelayGPIO100.py",
-            "is_active_tile": 1
+            "is_active_tile": 0
         },
         {
             "tile_id": "tile_5",
@@ -215,14 +215,14 @@
             "tile_name": "USB",
             "tile_icon": "usb.svg",
             "tile_file_mapping": "RelayGPIO16.py",
-            "is_active_tile": 1
+            "is_active_tile": 0
         },
         {
             "tile_id": "tile_7",
             "tile_name": "Reading Lights",
             "tile_icon": "reading_light.png",
             "tile_file_mapping": "RelayGPIO20.py",
-            "is_active_tile": 1
+            "is_active_tile": 0
         },
         {
             "tile_id": "tile_8",
