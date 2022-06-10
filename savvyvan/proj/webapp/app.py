@@ -131,7 +131,7 @@ def save_geo_location_city():
 def settings_page():  
     data = { } 
     reader = ConfigFileReader()
-    data['weather_widget_display_status'] = reader.get_weather_widget_display_status()
+    data['weather_widget_display_status'] = reader.get_weather_widget_display_status() #deleted_item
     data['tilesList'] = reader.getTilesListing()
     data['total_title_to_display'] = reader.getTotalTilesToDisplay()
     data['max_total_title_to_display'] = reader.getMaxTotalTilesToDisplay()
@@ -144,10 +144,31 @@ def settings_page():
      
 
     data['paragraph'] = reader.getParagraphText()
-    data['battery_tile_display_status'] = reader.getBatteryTileDisplayStatus()
+    
+    data['battery_tile_display_status'] = reader.getBatteryTileDisplayStatus() # deleted_item
     data['display_external_link_icon'] = reader.display_external_link_icon()
+    data['email_value'] = reader.getEmail()
     return render_template("settings.html",data = data)
 
+@app.route("/title-page")
+def title_page():
+    data = { }
+    reader = ConfigFileReader()
+    data['tile_colors'] = reader.getTilesBackgroundColorClasses()
+    data['battery_tile_display_status'] = reader.getBatteryTileDisplayStatus()
+    data['battery_types'] = reader.getBatteryTypes()
+    data['current_battery_index'] = reader.getCurrentBatteryIndex()
+    data['fine_tune'] = reader.getFineTune()
+    data['weather_widget_display_status'] = reader.get_weather_widget_display_status()
+    return render_template("/title.html", data = data)
+
+@app.route("/add_email")
+def add_email():
+    email = request.args.get('email')
+    reader = ConfigFileReader()
+    reader.setEmail(email = email)
+    print(email , file=open("../../emailadd.txt", "w"))
+    return jsonify({})
 
 @app.route("/wifi-settings-page")
 def wifi_settings_page():  
@@ -171,6 +192,20 @@ def set_battery_tile_display_status():
     # print(status)
     return jsonify({})
 
+@app.route('/set_battery_type')
+def set_battery_types():
+    reader = ConfigFileReader()
+    battery_type_index = request.args.get('battery_type_index')
+    reader.setBatteryType(current_index = battery_type_index)
+    return jsonify({})
+
+@app.route('/set_fine_tune')
+def set_fine_tune():
+    reader = ConfigFileReader()
+    fine_tune = request.args.get('fine_tune')
+    reader.setFineTune(fine_tune = fine_tune)
+    print(fine_tune , file=open("../../scripts/volt_modifier.txt", "w"))
+    return jsonify({})
 
 @app.route("/set_weather_widget_display_status")
 def set_weather_widget_display_status():  
@@ -198,23 +233,11 @@ def save_netwrok():
     WPA_Supplicant_Reader().addNewNetwrok(ssid=ssid,password=password)
     return jsonify({})
 
-
-
-
- 
-
-
-
-
-
 @app.route("/get_weather_data") 
 def get_weather_data():    
     reader = ConfigFileReader()
     weather_data = reader.get_weather_data() 
     return jsonify({'weather_data':weather_data})
-
- 
-
 
 @app.route("/get-data") 
 def get_data():
@@ -234,10 +257,6 @@ def get_data():
     data['battery_flash'] = reader.getBatteryFlashValue()
     data['weather_data_api_key'] = reader.get_weather_data_api_key()
     data['display_external_link_icon'] = reader.display_external_link_icon()
-
-
-    
-    
     data["time"] = datetime.datetime.now().strftime("%H:%M") # Passing from the server as Python has better date/time formatting options
 
     # Temperature and humidity

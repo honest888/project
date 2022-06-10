@@ -1,12 +1,11 @@
-
+ 
 import re
 import os,csv ,json
 from datetime import datetime
 
-BATTERY_THRESHOLDS = [
-    #{"percent": 50, "color": "#71cb72"},
-    #{"percent": 30, "color": "#f6d756"},
-    #{"percent": 0, "color": "#f23a3a"},
+BATTERY_THRESHOLDS = [[] for i in range(3)]
+#AGM
+BATTERY_THRESHOLDS[0] = [
     {"measure": 13.00, "percent": 100, "color": "#71cb72"},
     {"measure": 12.75, "percent": 90, "color": "#71cb72"},
     {"measure": 12.50, "percent": 80, "color": "#71cb72"},
@@ -17,11 +16,36 @@ BATTERY_THRESHOLDS = [
     {"measure": 11.81, "percent": 30, "color": "#f6d756"},
     {"measure": 11.66, "percent": 20, "color": "#f23a3a"},
     {"measure": 11.51, "percent": 10, "color": "#f23a3a"},
-    {"measure": 11.50, "percent": 0, "color": "#f23a3a"}
+    {"measure": 11.50, "percent": 0, "color": "#f23a3a"}   
 ]
-
-
-
+#Lead Acid
+BATTERY_THRESHOLDS[1] = [
+        {"measure": 12.70, "percent": 100, "color": "#71cb72"},
+        {"measure": 12.50, "percent": 90, "color": "#71cb72"},
+        {"measure": 12.42, "percent": 80, "color": "#71cb72"},
+        {"measure": 12.32, "percent": 70, "color": "#71cb72"},
+        {"measure": 12.20, "percent": 60, "color": "#71cb72"},
+        {"measure": 12.06, "percent": 50, "color": "#71cb72"},
+        {"measure": 11.90, "percent": 40, "color": "#f6d756"},
+        {"measure": 11.75, "percent": 30, "color": "#f6d756"},
+        {"measure": 11.58, "percent": 20, "color": "#f23a3a"},
+        {"measure": 11.31, "percent": 10, "color": "#f23a3a"},
+        {"measure": 10.50, "percent": 0, "color": "#f23a3a"}
+]
+#Lithium
+BATTERY_THRESHOLDS[2] = [
+    {"measure": 13.60, "percent": 100, "color": "#71cb72"},
+    {"measure": 13.40, "percent": 99, "color": "#71cb72"},
+    {"measure": 13.30, "percent": 90, "color": "#71cb72"},
+    {"measure": 13.20, "percent": 70, "color": "#71cb72"},
+    {"measure": 13.10, "percent": 40, "color": "#71cb72"},
+    {"measure": 13.00, "percent": 30, "color": "#71cb72"},
+    {"measure": 12.90, "percent": 20, "color": "#f6d756"},
+    {"measure": 12.80, "percent": 17, "color": "#f6d756"},
+    {"measure": 12.50, "percent": 14, "color": "#f23a3a"},
+    {"measure": 12.00, "percent": 9, "color": "#f23a3a"},
+    {"measure": 10.00, "percent": 0, "color": "#f23a3a"}
+]
 
 import numpy,json
 
@@ -51,8 +75,8 @@ class ConfigFileReader():
         self.file_path =  None
         path_options = [
             # os.path.join(os.getcwd(), 'config.json') ,
-            os.path.join('home/pi/savvyvan', 'proj','webapp', 'config.json') ,
-            os.path.join('/home/pi/savvyvan', 'proj','webapp', 'config.json') , 
+            os.path.join('E:/ControlPanel_lite-main/savvyvan', 'proj','webapp', 'config.json') ,
+            os.path.join('/E:/ControlPanel_lite-main/savvyvan', 'proj','webapp', 'config.json') , 
             os.path.join(os.getcwd(), 'webapp','config.json') ,
             os.path.join(os.getcwd(), 'config.json') ,
         ]
@@ -221,7 +245,7 @@ class ConfigFileReader():
             
     def getBatteryColor(self,level):
         color  = None
-        range = [x for index,x in enumerate(BATTERY_THRESHOLDS) if x['percent']>=level and ((index+1)<len(BATTERY_THRESHOLDS) and BATTERY_THRESHOLDS[index+1]['percent']<=level)]
+        range = [x for index,x in enumerate(BATTERY_THRESHOLDS[self.data['current_battery_index']]) if x['percent']>=level and ((index+1)<len(BATTERY_THRESHOLDS[self.data['current_battery_index']]) and BATTERY_THRESHOLDS[self.data['current_battery_index']][index+1]['percent']<=level)]
             # {"measure": 11.51, "percent": 10, "color": "#f23a3a"},
         # if not range:
         #     range = [x]    
@@ -299,15 +323,35 @@ class ConfigFileReader():
         if status=='False':
             return False
         return True
+    def getBatteryTypes(self):
+        return [x['name'] for x in self.data['battery_types']]
     
+    def getCurrentBatteryIndex(self):
+        return self.data['current_battery_index']
+  
+    def getEmail(self):
+        return self.data['email']
     
+    def setEmail(self, email):
+        self.data['email'] = email
+        self.updateDataFile(self.data)
+    
+    def setBatteryType(self, current_index):
+        self.data['current_battery_index'] = int(current_index)
+        self.updateDataFile(self.data)
+
+    def getFineTune(self):
+        return float(self.data['fine_tune'])
+    
+    def setFineTune(self, fine_tune):
+        self.data['fine_tune'] = float(fine_tune)
+        self.updateDataFile(self.data)
+
     def get_weather_widget_display_status(self): 
         status = str(self.data['weather_widget_display_status']).capitalize()
         if status=='False':
             return False
         return True
-    
-    
         
     def getBatteryMinMax(self):
         return [
@@ -317,7 +361,7 @@ class ConfigFileReader():
     
     
     def getBatteryFlashValue(self):
-        return float(self.data['battery_flash'])
+        return float(self.data['battery_types'][self.data['current_battery_index']]['flash'])
     
     def get_weather_data_api_key(self):
         return self.data['weather_data_api_key']
@@ -349,15 +393,15 @@ class ConfigFileReader():
             
     def generateBatteryLevel(self, battery_level): 
         
-        min_max = [x['measure'] for x in BATTERY_THRESHOLDS]
+        min_max = [x['measure'] for x in BATTERY_THRESHOLDS[self.data['current_battery_index']]]
         min_max = [
             min(min_max),
             max(min_max),
         ]
 
         # find position of voltage range in thresholds
-        for pos in range(len(BATTERY_THRESHOLDS)-1):
-            if battery_level < BATTERY_THRESHOLDS[pos]['measure'] and battery_level >= BATTERY_THRESHOLDS[pos+1]['measure']:
+        for pos in range(len(BATTERY_THRESHOLDS[self.data['current_battery_index']])-1):
+            if battery_level < BATTERY_THRESHOLDS[self.data['current_battery_index']][pos]['measure'] and battery_level >= BATTERY_THRESHOLDS[self.data['current_battery_index']][pos+1]['measure']:
                 break
         
         if battery_level<min_max[0]:
@@ -365,7 +409,7 @@ class ConfigFileReader():
         elif battery_level>=min_max[1]:
             percentage = 100
         else:
-            percentage = int(round(self.translate(battery_level,BATTERY_THRESHOLDS[pos+1]['measure'],BATTERY_THRESHOLDS[pos]['measure'],BATTERY_THRESHOLDS[pos+1]['percent'],BATTERY_THRESHOLDS[pos]['percent']),0))
+            percentage = int(round(self.translate(battery_level,BATTERY_THRESHOLDS[self.data['current_battery_index']][pos+1]['measure'],BATTERY_THRESHOLDS[self.data['current_battery_index']][pos]['measure'],BATTERY_THRESHOLDS[self.data['current_battery_index']][pos+1]['percent'],BATTERY_THRESHOLDS[self.data['current_battery_index']][pos]['percent']),0))
 
         #print('battery_level:',battery_level,'vlow:',BATTERY_THRESHOLDS[pos+1]['measure'],'vhigh:',BATTERY_THRESHOLDS[pos]['measure'],'plow:',BATTERY_THRESHOLDS[pos+1]['percent'],'phigh:',BATTERY_THRESHOLDS[pos]['percent'],'percentage:',percentage)
     

@@ -16,17 +16,14 @@
 
 
  <!-- Modal Structure -->
- <div id="city_modal" class="modal" style="width: 35% !important">
+<div id="city_modal" class="modal" style="width: 35% !important">
     <div class="modal-content">
         <input id="new_geo_location_city" type="text" class="browser-default input_x1 virtual-keyboard form-control" data-kioskboard-type="all" data-kioskboard-specialcharacters="true" placeholder="City Name" style="width: 100%;"> <br><br>
 
         <button class="btn left {{data.tile_colors.0}} {{data.tile_colors.2}}" id="save_geo_location_city"  style="width: 100% !important">Save City</button>
         <br>
-    </div>
-    
-
-    
-  </div>
+    </div>    
+</div>
 
 
 <div style="cursor:pointer" class="modal-trigger" href="#city_modal">
@@ -72,33 +69,41 @@
         }
       } -->
     
-    <div style="display: flex;flex-direction: row ; justify-content:space-around ;align-items: center;padding:5px 3%;margin:0px 7%;border-radius: 10px;" class="z-depth-2">
-        <!-- Weather Image -->
-        <img id="weather_icon" class="circle" src="" alt="Loading... Weather Iocn">
+      <div style="display: flex;flex-direction: row ; justify-content:space-around ;align-items: center;padding:5px 3%;margin:0px 7%;border-radius: 10px;" class="z-depth-2">
         <!-- Location -->
         <div  class="weather_info_unit_div">
             <p>Location</p>
             <p id="weather_location">Loading...</p> 
         </div> 
         <div class="weather_info_unit_div">
-            <p>Temperature</p>
-            <p id="weather_temperataure">Loading...</p> 
+            <p>Today</p>
+            <img id="weather_icon" class="circle" src="" alt="Loading... Weather Iocn">
+            <p id="weather_state1">Loading...</p>
+            <p id="temperature1">Loading...</p> 
         </div>
         <div  class="weather_info_unit_div">
-            <p>Wind Speed</p>
-            <p id="weather_wind_speed">Loading...</p> 
+            <p>Tomorrow</p>
+            <img id="weather_icon" class="circle" src="" alt="Loading... Weather Iocn">
+            <p id="weather_state2">Loading...</p>
+            <p id="temperature2">Loading...</p>  
         </div>
         <div  class="weather_info_unit_div">
-            <p>Pressure</p>
-            <p id="weather_pressure">Loading...</p> 
+            <p id = "third"></p>
+            <img id="weather_icon" class="circle" src="" alt="Loading... Weather Iocn">
+            <p id="weather_state3">Loading...</p>
+            <p id="temperature3">Loading...</p>  
         </div>
         <div  class="weather_info_unit_div">
-            <p>Humidity</p>
-            <p id="weather_humidity">Loading...</p> 
+            <p id = "firth"></p>
+            <img id="weather_icon" class="circle" src="" alt="Loading... Weather Iocn">
+            <p id="weather_state4">Loading...</p>
+            <p id="temperature4">Loading...</p>  
         </div>
         <div  class="weather_info_unit_div">
-            <p>Weather descriptions</p>
-            <p id="weather_descriptions">Loading...</p> 
+            <p id = "fifth"></p>
+            <img id="weather_icon" class="circle" src="" alt="Loading... Weather Iocn">
+            <p id="weather_state5">Loading...</p>
+            <p id="temperature5">Loading...</p>  
         </div>
     </div>
 
@@ -129,14 +134,14 @@ $('#save_geo_location_city').click(function(){
 
 })
 
-var data = {{ data | tojson }};   
-console.log('b');
-console.log(data);
+// var data = {{ data | tojson }};   
+// console.log('b');
+// console.log(data);
 
 function updateWeatherWidget(res){ 
     console.log('updateWeatherWidget')
-    $('#weather_icon').attr("src",`https://openweathermap.org/img/wn/${res.weather[0].icon}@2x.png`);
     $('#weather_location').html(`${res.name}, ${res.sys.country}`);
+    $('#weather_icon').attr("src",`https://openweathermap.org/img/wn/${res.weather[0].icon}@2x.png`);
     $('#weather_temperataure').html(`${res.main.temp} C`);
     $('#weather_wind_speed').html(`${res.wind.speed} km/h`);
     $('#weather_pressure').html(`${res.main.pressure} millibars`);
@@ -198,5 +203,4 @@ if(is_allowed!=null ){
     }
 
 }
-  
 </script>

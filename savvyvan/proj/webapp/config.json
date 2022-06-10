@@ -15,6 +15,23 @@
     "battery_min": 10.5,
     "battery_max": 15,
     "display_external_link_icon": "False",
+    "current_battery_index": 1,
+    "fine_tune": 0.4,
+    "email": "SIMON@GMAIL.COM",
+    "battery_types": [
+        {
+            "name": "AGM",
+            "flash": 11.66
+        },
+        {
+            "name": "Lead Acid",
+            "flash": 11.9
+        },
+        {
+            "name": "Lithium",
+            "flash": 12.8
+        }
+    ],
     "avaliable_base_color_classes": [
         "amber",
         "black",
@@ -37,7 +54,6 @@
         "lighten-3",
         "lighten-2",
         "lighten-1",
-        "default",
         "darken-1",
         "darken-3",
         "darken-2",
@@ -48,7 +64,6 @@
         "lighten-3",
         "lighten-2",
         "lighten-1",
-        "default",
         "darken-1",
         "darken-2",
         "darken-3",
@@ -146,75 +161,75 @@
         "RelayGPIO20.py",
         "RelayGPIO21.py"
     ],
-    "tile_bg_class": "teal",
-    "battery_tile_display_status": "False",
-    "tile_shade_1": "default",
-    "tile_shade_2": "default",
+    "tile_bg_class": "blue",
+    "battery_tile_display_status": "True",
+    "tile_shade_1": "darken-2",
+    "tile_shade_2": "darken-3",
     "background_color": {
-        "base_class": "teal",
-        "shade1_class": "default",
-        "shade2_class": "default"
+        "base_class": "blue",
+        "shade1_class": "darken-2",
+        "shade2_class": "darken-3"
     },
     "total_title_to_display": 4,
-    "geo_location_city": "LEEDS",
-    "weather_data": "{\"coord\": {\"lon\": -1.5477, \"lat\": 53.7964}, \"weather\": [{\"id\": 802, \"main\": \"Clouds\", \"description\": \"scattered clouds\", \"icon\": \"03d\"}], \"base\": \"stations\", \"main\": {\"temp\": 15.36, \"feels_like\": 14.13, \"temp_min\": 13.86, \"temp_max\": 17.27, \"pressure\": 1012, \"humidity\": 45}, \"visibility\": 10000, \"wind\": {\"speed\": 8.23, \"deg\": 280}, \"clouds\": {\"all\": 40}, \"dt\": 1652367980, \"sys\": {\"type\": 2, \"id\": 2041378, \"country\": \"GB\", \"sunrise\": 1652328581, \"sunset\": 1652385330}, \"timezone\": 3600, \"id\": 3333164, \"name\": \"Leeds\", \"cod\": 200}",
-    "weather_widget_display_status": "False",
+    "geo_location_city": "London",
+    "weather_data": "",
+    "weather_widget_display_status": "True",
     "tiles": [
         {
             "tile_id": "tile_1",
             "tile_name": "",
             "tile_icon": "Profile_transparent_small.png",
             "tile_file_mapping": "RelayGPIO25.py",
-            "is_active_tile": 0
+            "is_active_tile": 1
         },
         {
             "tile_id": "tile_2",
             "tile_name": "",
             "tile_icon": "thankyou.png",
             "tile_file_mapping": "RelayGPIO8.py",
-            "is_active_tile": 0
+            "is_active_tile": 1
         },
         {
             "tile_id": "tile_3",
             "tile_name": "",
             "tile_icon": "manuals.png",
             "tile_file_mapping": "RelayGPIO7.py",
-            "is_active_tile": 0
+            "is_active_tile": 1
         },
         {
             "tile_id": "tile_4",
             "tile_name": "",
             "tile_icon": "begin_config.png",
             "tile_file_mapping": "RelayGPIO100.py",
-            "is_active_tile": 0
+            "is_active_tile": 1
         },
         {
             "tile_id": "tile_5",
-            "tile_name": "",
-            "tile_icon": "",
+            "tile_name": "TV",
+            "tile_icon": "tv.png",
             "tile_file_mapping": "RelayGPIO12.py",
             "is_active_tile": 1
         },
         {
             "tile_id": "tile_6",
-            "tile_name": "",
-            "tile_icon": "",
+            "tile_name": "USB",
+            "tile_icon": "usb.svg",
             "tile_file_mapping": "RelayGPIO16.py",
-            "is_active_tile": 0
+            "is_active_tile": 1
         },
         {
             "tile_id": "tile_7",
-            "tile_name": "",
-            "tile_icon": "",
+            "tile_name": "Reading Lights",
+            "tile_icon": "reading_light.png",
             "tile_file_mapping": "RelayGPIO20.py",
             "is_active_tile": 1
         },
         {
             "tile_id": "tile_8",
-            "tile_name": "",
-            "tile_icon": "",
+            "tile_name": "Aux Volt Meter",
+            "tile_icon": "Volt_meter.png",
             "tile_file_mapping": "RelayGPIO21.py",
-            "is_active_tile": 0
+            "is_active_tile": 1
         }
     ]
 }

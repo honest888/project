@@ -19,12 +19,12 @@
 <center>
     <div class="col s12 l6 m6">
         <div>
-            <br><br>
+            <br>
                 <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;">
                     <span style="padding-right: 15px" class="enlarge_text">
-                       Number of Tiles
+                       No. of Tiles
                     </span> 
-                    <select  id="total_title_to_display" class="browser-default" style="width:65px">
+                    <select  id="total_title_to_display" class="browser-default" style="width:150px">
                         {% for x in data.max_total_title_to_display %}
                         {% if data.total_title_to_display == x %}
                             <option value="{{x}}" selected>{{x}}</option>
@@ -89,14 +89,14 @@
             <div style="padding: 0% 15%;margin-top: 30px;">
                 <div>
                     <span  class="enlarge_text">
-                        System Colours
+                        Choose Background Color
                        
                      </span>  
 
                     <div style="margin-top: 10px;display: flex;flex-direction: column;justify-content: center;align-items: center;">
              
                         <!-- Selection Base class -->
-                        Main Colour<select name="" id="select_base_class" class="browser-default"> 
+                        Menu color<select name="" id="select_base_class" class="browser-default"> 
                             {% for color_class in data.all_color_classes.avaliable_base_color_classes %}
                             {% if data.tile_colors.0 == color_class %}
                             <option value="{{color_class}}" selected>{{color_class}}</option>
@@ -106,10 +106,9 @@
                                 {% endfor %}
                             </select>
                             
-
             
                         <!-- Selection Shade 2 class -->
-                        Menu Shade<select name="" id="select_shade2_class" class="browser-default"> 
+                        Menu color shade<select name="" id="select_shade2_class" class="browser-default"> 
                             {% for color_class in data.all_color_classes.avaliable_shade2_classes %}
                             {% if data.tile_colors.2 == color_class %}
                             <option value="{{color_class}}" selected>{{color_class}}</option>
@@ -120,7 +119,7 @@
                         </select>
 
                         <!-- Selection Shade 1 class -->
-                        Selected Tile Shade<select name="" id="select_shade1_class" class="browser-default"> 
+                        Tile shade<select name="" id="select_shade1_class" class="browser-default"> 
                             {% for color_class in data.all_color_classes.avaliable_shade1_classes %}
                             {% if data.tile_colors.1 == color_class %}
                             <option value="{{color_class}}" selected>{{color_class}}</option>
@@ -129,61 +128,32 @@
                             {% endif %}
                             {% endfor %}
                         </select>
+                        </select>
             
                         
-                    <button style="margin-top: 10px;width: 100%;" id="save_color_value_btn " onclick="save_color_value()"   class="btn right {{data.tile_colors.0}} {{data.tile_colors.2}}">Save</button>
-                      </div>
-                </div>
-            
-
-                <br><br>
-
-                <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
-                    
-                                    <div>
-                                        <!-- <span style="padding-right: 15px" class="enlarge_text"> Optional Tiles  </span>  -->
-                                        <p class="">
-                                            <label>
-                                                {% if data.battery_tile_display_status %}
-                                                  
-                                                <input id="battery_tile_display_status"  type="checkbox" class="filled-in" checked="checked" />
-                                                {% else %}
-                                                <input id="battery_tile_display_status"  type="checkbox" class="filled-in"  />
-                                                  
-                                                {% endif %}
-                                                
-                                              <span>Battery Monitor </span> 
-                                              
-                                            </label>
-                                          </p>  
-                                    </div>
-                    
-                                    <div>
-                                        <!--<span style="padding-right: " class="enlarge_text"> Weather Widget  </span>  -->
-                                        <p class="">
-                                            <label>
-                                                {% if data.weather_widget_display_status %}
-                                                  
-                                                <input id="weather_widget_display_status"  type="checkbox" class="filled-in" checked="checked" />
-                                                {% else %}
-                                                <input id="weather_widget_display_status"  type="checkbox" class="filled-in"  />
-                                                  
-                                                {% endif %}
-                                                
-                                              <span>Weather Widget </span>
-                                            </label>
-                                          </p>  
-                                    </div>
-
+                        <button style="margin-top: 10px;width: 100%;" id="save_color_value_btn" onclick="save_color_value()"   class="btn right {{data.tile_colors.0}} {{data.tile_colors.2}}">Save</button>
+                        <!-- GO to Optional title page -->
+                        <button style="margin: 35px 0px; width: 100%;" class="btn right {{data.tile_colors.0}} {{data.tile_colors.2}}" onclick="window.location.href='/title-page';">Go to Optional Titles</button>
+                        
+                        <!-- Add email  -->
+                        Notification Email Address
+                        <div class="row" style="width: 100%; margin-top: -15px;">
+                            <div class="input-field col s10" style="padding-left: 0px;">
+                                <input id="email" type="text" class="virtual-keyboard validate" data-kioskboard-type="all" data-kioskboard-specialcharacters="true" placeholder="Enter email" style="background-color: white; border-radius:2px; height: 34px;" value="{{data.email_value}}">
+                                <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+                            </div>
+                            <div class="col s2" style="padding-right: 0px;padding-left: 0px;">
+                                <button style="margin-top: 14px;width: 100%;" id="email_add_btn" onclick="emailAdd()" class="btn right {{data.tile_colors.0}} {{data.tile_colors.2}}">Add</button>                  
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </center>
     </div>
-
 </div>
 
-
-<!--<div style="display:flex;flex-direction: row;justify-content:space-between;padding: 5px 30px ;"> -->
+<div style="display:flex;flex-direction: row;justify-content:space-between;padding: 5px 30px; font-weight: bold;">
 
 </div>
 
@@ -191,7 +161,7 @@
     {{data.paragraph}}
 </p>
 
-
+<br><br>
 
 <script>
 
@@ -213,41 +183,23 @@ function save_color_value(){
 
 }
 
-
- 
-</script>
-
-<script>
-
-  
-
-$('#battery_tile_display_status').change(function(){
-    var status = $(this).is(':checked')
-    $.ajax({
-        url:"/set_battery_tile_display_status",
-        data: {'status':status},
-        success: function(res){
-
-        }
-    })
-})
-  
-$('#weather_widget_display_status').change(function(){
-    var status = $(this).is(':checked')
-    $.ajax({
-        url:"/set_weather_widget_display_status",
-        data: {'status':status},
-        success: function(res){
-
-        }
-    })
-})
-  
-
-
-
-
-
+function emailAdd(){
+    var email = $("#email").val();
+    if($("#email").hasClass('validate valid')) {
+        
+        $.ajax({
+            url:"/add_email",
+            data:{
+                "email":email
+            },
+            success: function(res){
+                
+            }
+        })
+        var toastHtml = '<span style="margin: -25px; font-weight: bold; background-color: white; color: black; box-shadow: 3px; opacity: 0.9; border-radius:2px; padding: 12px;">Email is successfully added.</span>'
+        M.toast({html: toastHtml})
+    }
+}
 $('#total_title_to_display').change(function(){
     var total_title_to_display = $('#total_title_to_display').val()
     $.ajax({
