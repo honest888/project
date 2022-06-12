@@ -173,10 +173,10 @@
         "shade1_class": "darken-2",
         "shade2_class": "darken-3"
     },
-    "total_title_to_display": 4,
-    "geo_location_city": "LEEDS",
+    "total_title_to_display": 6,
+    "geo_location_city": "TT",
     "weather_data": "{\"cod\": 401, \"message\": \"Invalid API key. Please see http://openweathermap.org/faq#error401 for more info.\"}",
-    "weather_widget_display_status": "False",
+    "weather_widget_display_status": "True",
     "tiles": [
         {
             "tile_id": "tile_1",
