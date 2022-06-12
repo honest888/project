@@ -3,6 +3,8 @@
     "settings_page_text_file_path": "message.txt",
     "battery_file_path": "readings/voltage.txt",
     "battery_graph_file_path": "readings/voltage_graph.txt",
+    "email_file_path": "emailadd.txt",
+    "volt_modifier_file_path": "scripts/volt_modifier.txt",
     "images_folder_path": "proj/webapp/static/img",
     "gpio_stat_folder_path": "GPIOStats",
     "wifi_file_path": "/etc/wpa_supplicant/wpa_supplicant.conf",
@@ -16,8 +18,9 @@
     "battery_max": 15,
     "display_external_link_icon": "False",
     "current_battery_index": 1,
-    "fine_tune": 0.4,
+    "fine_tune": 0.2,
     "email": "SIMON@GMAIL.COM",
+    "notification_file": "notification.txt",
     "battery_types": [
         {
             "name": "AGM",
@@ -161,12 +164,12 @@
         "RelayGPIO20.py",
         "RelayGPIO21.py"
     ],
-    "tile_bg_class": "blue",
+    "tile_bg_class": "lime",
     "battery_tile_display_status": "True",
     "tile_shade_1": "darken-2",
     "tile_shade_2": "darken-3",
     "background_color": {
-        "base_class": "blue",
+        "base_class": "lime",
         "shade1_class": "darken-2",
         "shade2_class": "darken-3"
     },

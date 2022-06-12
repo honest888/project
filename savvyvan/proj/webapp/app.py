@@ -147,7 +147,6 @@ def settings_page():
     
     data['battery_tile_display_status'] = reader.getBatteryTileDisplayStatus() # deleted_item
     data['display_external_link_icon'] = reader.display_external_link_icon()
-    data['email_value'] = reader.getEmail()
     return render_template("settings.html",data = data)
 
 @app.route("/title-page")
@@ -160,6 +159,7 @@ def title_page():
     data['current_battery_index'] = reader.getCurrentBatteryIndex()
     data['fine_tune'] = reader.getFineTune()
     data['weather_widget_display_status'] = reader.get_weather_widget_display_status()
+    data['email_value'] = reader.getEmail()
     return render_template("/title.html", data = data)
 
 @app.route("/add_email")
@@ -167,7 +167,6 @@ def add_email():
     email = request.args.get('email')
     reader = ConfigFileReader()
     reader.setEmail(email = email)
-    print(email , file=open("../../emailadd.txt", "w"))
     return jsonify({})
 
 @app.route("/wifi-settings-page")
@@ -204,7 +203,6 @@ def set_fine_tune():
     reader = ConfigFileReader()
     fine_tune = request.args.get('fine_tune')
     reader.setFineTune(fine_tune = fine_tune)
-    print(fine_tune , file=open("../../scripts/volt_modifier.txt", "w"))
     return jsonify({})
 
 @app.route("/set_weather_widget_display_status")
@@ -257,6 +255,7 @@ def get_data():
     data['battery_flash'] = reader.getBatteryFlashValue()
     data['weather_data_api_key'] = reader.get_weather_data_api_key()
     data['display_external_link_icon'] = reader.display_external_link_icon()
+    data['notification'] = reader.getNotification()
     data["time"] = datetime.datetime.now().strftime("%H:%M") # Passing from the server as Python has better date/time formatting options
 
     # Temperature and humidity
